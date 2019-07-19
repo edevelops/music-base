@@ -1,0 +1,57 @@
+<app-popup :displayd.sync="tagsOpened" class="tags-window">
+    <h2>Управление тэгами</h2>
+    
+    <div class="tags-list">
+        <ul>
+            <li v-for="tag in tags" :key="tag.id">
+                <span :class="'tag-color-'+tag.color">{{tag.title}}</span>
+                <button type="button" @click="tagsOpenEdit(tag)">Изменить</button>
+                <button type="button" @click="tagsRemove(tag)">Удалить</button>
+            </li>
+        </ul>
+    </div>
+    
+    <button type="button" @click="tagsOpenCreate()" v-if="!tagsNewTag">Создать</button>
+    
+    <form class="create-form" @submit.prevent="tagsCreate()" v-if="tagsNewTag">
+        <div class="row">Новый тэг: <input v-model="tagsNewTag.title" required=""/></div>
+        <div class="row">
+            Цвет:
+            <label v-for="color in tagsColors" :key="color" class="control-color" :class="'tag-color-'+color">
+                <input type="radio" v-model="tagsNewTag.color" :value="color" />
+                {{color}}
+            </label>
+        </div>
+        <div class="row">
+            <button type="submit">Добавить</button>
+        </div>
+    </form>
+    
+    <form class="edit-form" @submit.prevent="tagsEdit()" v-if="tagsEditedTag">
+        <div class="row">Тэг: <input v-model="tagsEditedTag.title" required=""/></div>
+        <div class="row">
+            Цвет:
+            <label v-for="color in tagsColors" :key="color" class="control-color" :class="'tag-color-'+color">
+                <input type="radio" v-model="tagsEditedTag.color" :value="color" />
+                {{color}}
+            </label>
+        </div>
+        <div class="row">
+            <button type="submit">Сохранить изменения</button>
+        </div>
+    </form>
+    
+</app-popup>
+
+
+<app-popup :displayd.sync="tagsTrackOpened" class="tags-window">
+    <h2 v-if="tagsTrackEdited">Тэги трека "{{tagsTrackEdited.title}}"</h2>
+    <div class="tags-list">
+        <ul>
+            <li v-for="tag in tags" :key="tag.id" @click="tagsTrackToggle(tag)">
+                <span class="checkbox" :class="{checked:tagsTrackHasTag(tag)}"></span>
+                <span :class="'tag-color-'+tag.color">{{tag.title}}</span>
+            </li>
+        </ul>
+    </div>
+</app-popup>

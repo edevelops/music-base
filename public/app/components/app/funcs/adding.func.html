@@ -1,0 +1,45 @@
+<app-popup :displayd.sync="addingOpened" class="adding-window">
+    <h2>Добавление трека</h2>
+    <form class="column-form" @submit.prevent="addingApply()" v-if="addingTrack">
+        <label>
+            <span>Название:</span>
+            <input v-model="addingTrack.title" required=""/>
+        </label>
+        <label>
+            <span>Версия:</span>
+            <input v-model="addingTrack.version"/>
+        </label>
+        <label>
+            <span>Альбом: </span>
+            <span v-if="addingTrack.albumId">
+                {{getTrackAlbum(addingTrack).title}}
+                <span class="clear" @click="addingClearAlbum()">&#x2718;</span>
+            </span>
+            <span v-else="">Не указан</span>
+            <span class="gap"></span>
+            <app-search-control placeholder="Поиск альбома" :items="albums" v-model="addingAlbumTitle"
+                                label-property="title" @select="addingSetAlbum($event)">
+                <template v-slot="slotProps">{{slotProps.item | album}}</template>
+            </app-search-control>
+            <a href="" @click.prevent="addingAddAlbum()">Добавить</a>
+        </label>
+        <label>
+            <span>Исполнители: </span>
+            <span v-if="addingTrack.artistIds.length">
+                <span class="artist" v-for="artist in getTrackArtists(addingTrack)" :key="artist.id">{{artist.title}}</span>
+                <span class="clear" @click="addingClearArtists()">&#x2718;</span>
+            </span>
+            <span v-else="">Не указаны</span>
+            <span class="gap"></span>
+            <app-search-control placeholder="Поиск исполнителя" :items="artists" v-model="addingArtistTitle"
+                                label-property="title" @select="addingAddArtist($event)"></app-search-control>
+            <a href="" @click.prevent="addingAddTrack()">Добавить</a>
+        </label>
+        <div class="actions">
+            <button type="button" @click="addingApply()">
+                <span v-if="addingIsEditing">Сохранить трек</span>
+                <span v-else="">Добавить трек</span>
+            </button>
+        </div>
+    </form>
+</app-popup>

@@ -1,0 +1,18 @@
+<app-popup :displayd.sync="savingOpened" class="saving-window">
+    <h2>Сохранение треков</h2>
+    <form @submit.prevent="savingApply()">
+        <p><input type="text" placeholder="Директория для сохранения" v-model="savingDir" required=""/></p>
+        <p><input type="text" placeholder="Шаблон" v-model="savingTemplate" required=""/></p>
+        <p><label><input type="checkbox" v-model="savingGroupByTags"/> Предварительно разложить по папкам-тегам</label></p>
+        
+        <p>Поддерживаемые теги: {{savingPlaceholders.join(', ')}}</p>
+        <div>Примеры:</div>
+        <ul>
+            <li v-for="item in savingExamples"><a href="" @click.prevent="savingSetExample(item)">{{item}}</a></li>
+        </ul>
+                
+        <div class="actions">
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+</app-popup>

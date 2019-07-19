@@ -1,0 +1,65 @@
+[
+    {
+        "controller":"TrackController",
+        "routes":{
+            "tracks":{
+                "GET":{"method":"getTracks", "permission":null},
+                "POST":{"method":"createTrack", "permission":null}
+            },
+            "tracks/{id:\\d+}":{
+                "DELETE":{"method":"deleteTrack", "permission":null},
+                "PATCH":{"method":"updateTrack", "permission":null}
+            },
+            "tracks/{id:\\d+}/upload":{
+                "POST":{"method":"uploadFile", "permission":null}
+            },
+            "tracks/{id:\\d+}/file":{
+                "GET":{"method":"getTrackFile", "permission":null},
+                "DELETE":{"method":"deleteTrackFile", "permission":null}
+            },
+            "tracks/{id:\\d+}/info":{
+                "GET":{"method":"getTrackFileInfo", "permission":null}
+            },
+            "albums":{
+                "GET":{"method":"getAlbums", "permission":null},
+                "POST":{"method":"createAlbum", "permission":null}
+            },
+            "tags":{
+                "GET":{"method":"getTags", "permission":null},
+                "POST":{"method":"createTag", "permission":null}
+            },
+            "tags/{id:\\d+}":{
+                "PATCH":{"method":"updateTag", "permission":null},
+                "DELETE":{"method":"deleteTag", "permission":null}
+            },
+            "artists":{
+                "GET":{"method":"getArtists", "permission":null},
+                "POST":{"method":"createArtist", "permission":null}
+            }
+        }
+    },
+    {
+        "controller":"SavingController",
+        "routes":{
+            "save":{
+                "POST":{"method":"doSave", "permission":null}
+            }
+        }
+    },
+    {
+        "controller":"ImportController",
+        "routes":{
+            "import":{
+                "POST":{"method":"doImport", "permission":null}
+            }
+        }
+    },
+    {
+        "controller":"CronController",
+        "routes":{
+            "cron/{task:[0-9a-z-]{1,32}}":{
+                "GET":{"method":"runCron", "permission":null}
+            }
+        }
+    }
+]

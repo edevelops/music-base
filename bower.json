@@ -1,0 +1,10 @@
+{
+  "name": "music-base",
+  "version": "1.0.0",
+  "dependencies": {
+    "reset-css": "4.0.1",
+    "axios": "0.18.0",
+    "vue": "2.6.10",
+    "underscore": "1.9.1"
+  }
+}

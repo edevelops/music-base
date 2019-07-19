@@ -1,0 +1,18 @@
+<app-popup :displayd.sync="uploadOpened" class="upload-window">
+    <div v-if="uploadTrack">
+        <h2>
+            Загрузка файла
+            <span v-if="uploadTrack.duration">[{{uploadTrack.duration | duration}}]</span>
+            <div v-if="uploadTrack.hasFile" class="warning">Существующий файл будет перезаписан</div>
+        </h2>
+        
+        <h2>{{getTrackArtists(uploadTrack).map(i=>i.title).join(', ')}} - {{uploadTrack.title}}</h2>
+    </div>
+    <br/>
+    <form @submit.prevent="uploadApply()">
+        <input placeholder="URL файла" v-model="uploadUrl" required=""/>
+        <div class="actions">
+            <button type="submit">Загрузить</button>
+        </div>
+    </form>
+</app-popup>

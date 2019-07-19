@@ -1,0 +1,119 @@
+<div id="app-component-template">
+    <div class="app">
+        <div class="load-splash" v-if="loading"></div>
+        
+        <audio controls__="" :src="playerSource" ref="player"></audio>
+        
+        <div class="toolbar">
+            <button type="button" @click="reload()" title="Обновить">&nbsp;⟳&nbsp;</button>
+            <button type="button" @click="addingOpen()">Добавить</button>
+            <button type="button" @click="ymImportOpen()">Импорт из YM</button>
+            <!--<button type="button">Загрузка</button>-->
+            <button type="button" @click="tagsOpen()">Тэги</button>
+            <button type="button" @click="savingOpen()">Сохранить</button>
+            <div>Файлов в базе: {{playablePercent | percent}}</div>
+        </div>
+        <div class="filters" v-if="filterDisplayed">
+            Фильтры: 
+            <div class="filter" v-for="filter in filters">
+                <span v-if="filter.type===FilterType.ARTIST">Исполнитель: {{filter.artist.title}}</span>
+                <span v-if="filter.type===FilterType.ALBUM">Альбом: {{filter.album.title}}</span>
+                <span v-if="filter.type===FilterType.TAG" :class="'tag-color-'+filter.tag.color">Тэг {{filter.tag.title}}</span>
+                <span class="control" @click="filterRemove(filter)">&#x2717;</span>
+            </div>
+        </div>
+        <div class="tracks-section">
+            <table class="tracks-tab" v-if="firstLoadFinished">
+                <thead>
+                    <th></th>
+                    <th>№</th>
+                    <th>Исполнители</th>
+                    <th>Название</th>
+
+                    <th>Альбом</th>
+
+                    <th>Тэги</th>
+
+                    <th>Кбит/с</th>
+                    <th></th>
+
+                </thead>
+                <tr class="track-row" :ref="'track-'+track.id"
+                    v-for="(track, i) in filteredTracks" :key="track.id" :class="{'playing':playerIsPlaying(track)}">
+                    <td class="controls">
+                        <div class="control" @click="uploadOpen(track)">&#8673;</div>
+                        <div class="control" @click="removeOpen(track)">&#x2718;</div>
+                        <div class="control" @click="tagsTrackOpen(track)">T</div>
+                            <div class="control" @click="addingOpenEdit(track)">M</div>
+                        <span v-if="track.hasFile">
+                            <div class="control" @click="playerSelectTrack(track)">&#x25BA;</div>
+                            <div class="control" @click="trackInfoOpen(track)">i</div>
+                        </span>
+                    </td>
+                    <td>{{i+1}}</td>
+                    <td>
+                        <a class="artist" v-for="artist in getTrackArtists(track)" :key="artist.id"
+                           href="" @click.prevent="filterByArtist(artist)"> {{artist.title}}</a>
+                    </td>
+                    <td>
+                        {{track.title}}
+                        <span class="version" v-if="track.version">{{track.version}}</span>
+                    </td>
+                    <td>
+                        <a v-if="getTrackAlbum(track)" href="" @click.prevent="filterByAlbum(getTrackAlbum(track))">
+                            {{getTrackAlbum(track) | album}}
+                        </a>
+                        <span v-else>--</span>
+                    </td>
+                    <td>
+                        <a class="tag" v-for="tag in getTrackTags(track)" :key="tag.id" :class="'tag-color-'+tag.color"
+                           href="" @click.prevent="filterByTag(tag)"> {{tag.title}}</a>
+                    </td>
+                    <td>{{track.bitrate | bitrate}}</td>
+                    <td>{{track.duration | duration}}</td>
+                </tr>
+            </table>
+            <div v-else="">
+                Загрузка...
+            </div>
+        </div>
+        
+        <div class="toolbar">
+            
+            <button class="button-icon" type="button" v-if="playerPlaying" @click="playerPause()" title="Пауза">&nbsp❚❚&nbsp;</button>
+            <button class="button-icon" type="button" v-else="" @click="playerPlay()" title="Играть">&nbsp;►&nbsp;</button>
+            <button class="button-icon" type="button" @click="playerPlayNext()" title="Следующий">&nbsp;❯&nbsp;</button>
+            
+            <div class="timings">{{playerTime | duration}} / {{playerDuration | duration}}</div>
+            
+            <div class="player">
+                <input type="range" :value="playerPos" @input="playerSetPos($event.target.value)" :min="playerMinPos" :max="playerMaxPos">
+            </div>
+            
+            
+            <button type="button" @click="playerToogleRandom()"><span class="checkbox" :class="{checked:playerIsRandom()}"></span> Случайный</button>
+            <button type="button" @click="playerGoTo()">Показать</button>
+            <div class="volume" title="Громкость">
+                <input type="range" :value="playerVolume" @input="playerSetVolume($event.target.value)" min="0" max="100">
+            </div>
+        </div>
+        
+        <?php require './app/components/app/funcs/adding.func.html'; ?>
+        <?php require './app/components/app/funcs/upload.func.html'; ?>
+        <?php require './app/components/app/funcs/remove.func.html'; ?>
+        <?php require './app/components/app/funcs/saving.func.html'; ?>
+        <?php require './app/components/app/funcs/ym.func.html'; ?>
+        <?php require './app/components/app/funcs/tags.func.html'; ?>
+        
+        
+        <app-popup :displayd.sync="loadErrorDisplayed" class="load-error">
+            <div class="error">{{loadErrorMessage}}</div>
+        </app-popup>
+                
+        <app-popup :displayd.sync="trackInfoOpened" class="track-info-window">
+            <h2>Характеристики файла "{{trackInfoTrack ? trackInfoTrack.title : ''}}"</h2>
+            <pre>{{trackInfoData}}</pre>
+        </app-popup>
+        
+    </div>
+</div>

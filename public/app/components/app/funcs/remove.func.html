@@ -1,0 +1,9 @@
+
+<app-popup :displayd.sync="removeOpened" class="remove-window">
+    <h2>Удаления трека "{{removeTrack ? removeTrack.title : ''}}"</h2>
+    <div class="actions">
+        <button type="button" @click="remove()">Удалить полностью</button>
+        <button type="button" @click="remove(true)">Удалить только файл</button>
+        <button type="button" @click="removeCancel()">Отмена</button>
+    </div>
+</app-popup>

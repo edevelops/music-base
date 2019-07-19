@@ -1,0 +1,13 @@
+<div id="app-search-control-template">
+    <div class="search-control">
+        <input class="input" v-model="searchText" :placeholder="placeholder"/>
+        <span class="clear" @click="clear()" :class="{visible:allowClear}">&#x2717;</span>
+        <div class="list" v-if="filteredItems.length">
+            <div class="item" v-for="item in filteredItems" @click="selectItem(item)">
+                <slot v-if="hasSlot" :item="item"></slot>
+                <span v-else="">{{getItemLabel(item)}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+    

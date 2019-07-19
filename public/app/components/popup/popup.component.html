@@ -1,0 +1,9 @@
+<div id="app-popup-template">
+    <div class="popup" v-if="displayd">
+        <div class="backdrop" @click="close()"></div>
+        <div class="window">
+            <slot></slot>
+        </div>
+    </div>
+</div>
+    

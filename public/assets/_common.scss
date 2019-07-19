@@ -1,0 +1,53 @@
+html,body{
+    height: 100%;
+}
+
+
+ul {
+  padding: 20px;
+  list-style-type: circle;
+  li {
+    margin: 5px;
+  }
+}
+
+code,pre{
+    font-family: monospace;
+}
+
+h1{
+    font-size: 2em;
+}
+h2{
+    font-size: 1.5em;
+}
+h3{
+    font-size: 1.2em;
+}
+h1,h2,h3{
+    font-weight: bold;
+    font-family: sans-serif;
+    line-height: 1.5em;
+    margin-bottom: 0.3em;
+}
+
+.checkbox{
+    $size:16px;
+    display: inline-block;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: $size;
+    vertical-align: middle;
+    &:hover,&:active{
+        opacity: 0.7;
+    }
+    &:before{
+        content: "☐";
+    }
+    &.checked{
+        &:before{
+            content: "☑";
+        }
+    }
+}

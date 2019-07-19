@@ -1,0 +1,8 @@
+/vendor/
+/public/app/vendor/
+/logs
+/data
+/.env
+
+!.gitkeep
+!/data/

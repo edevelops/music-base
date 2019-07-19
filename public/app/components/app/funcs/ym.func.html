@@ -1,0 +1,31 @@
+
+<app-popup :displayd.sync="ymImportOpened" class="ym-import-window">
+    <div>
+        <h2>Импорт из Yandex.Music</h2>
+        <h3>Инструкция</h3>
+        <ul>
+            <li>Откройте YM</li>
+            <li>Импортируемый плейлист</li>
+            <li>
+                Выполните в консоли код: <br/>
+                <code>document.body.innerHTML='&lt;textarea cols="100" rows="20"&gt;'+JSON.stringify(externalAPI.getTracksList())+'&lt;/textarea&gt;';</code>
+            </li>
+            <li>Скопируйте содержимое текстового поля</li>
+        </ul>
+    </div>
+    <br/>
+    <div>
+        <form @submit.prevent="ymImportApply()">
+            <textarea v-model="ymImportData" class="text-control" placeholder="JSON код из YM" required=""></textarea>
+            <div class="actions">
+                <button type="submit">Импортировать</button>
+            </div>
+        </form>
+    </div>
+
+</app-popup>
+
+<app-popup :displayd.sync="ymImportResultsOpened" class="ym-result-window">
+    <h2>Результаты импорта</h2>
+    <pre>{{ymImportResults}}</pre>
+</app-popup>

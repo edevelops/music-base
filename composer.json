@@ -1,0 +1,19 @@
+{
+    "name": "edevelops/music-base",
+    "description": "Own music database",
+    "authors": [
+        {
+            "name": "Ilya Dashevsky",
+            "email": "il.dashevsky@gmail.com"
+        }
+    ],
+    "require": {
+        "edevelop/open-core": "^1.2",
+        "james-heinrich/getid3": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "MagicSpa\\": "src/"
+        }
+    }
+}
