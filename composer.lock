@@ -239,16 +239,16 @@
         },
         {
             "name": "edevelop/open-core",
-            "version": "1.2.1",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/edevelops/open-core.git",
-                "reference": "a9a6b54cfd19052b797019682439c9b7e3c3fc0d"
+                "reference": "70ca1431d1340d004567b629df8841179f5ec806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/edevelops/open-core/zipball/a9a6b54cfd19052b797019682439c9b7e3c3fc0d",
-                "reference": "a9a6b54cfd19052b797019682439c9b7e3c3fc0d",
+                "url": "https://api.github.com/repos/edevelops/open-core/zipball/70ca1431d1340d004567b629df8841179f5ec806",
+                "reference": "70ca1431d1340d004567b629df8841179f5ec806",
                 "shasum": ""
             },
             "require": {
@@ -282,7 +282,11 @@
             ],
             "description": "Simple and lightweight PHP engine for web application backend",
             "homepage": "https://github.com/edevelops/open-core",
-            "time": "2019-04-30T20:25:34+00:00"
+            "support": {
+                "issues": "https://github.com/edevelops/open-core/issues",
+                "source": "https://github.com/edevelops/open-core/tree/1.3.4"
+            },
+            "time": "2020-11-27T16:59:25+00:00"
         },
         {
             "name": "james-heinrich/getid3",
@@ -1861,5 +1865,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
