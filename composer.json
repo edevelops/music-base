@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "edevelop/open-core": "^1.2",
+        "edevelop/open-core": "dev-master",
         "james-heinrich/getid3": "^1.9"
     },
     "autoload": {
